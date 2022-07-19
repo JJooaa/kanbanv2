@@ -7,7 +7,9 @@ const Kanban = ({ boards, setBoards, currentBoard }) => {
 
     const { source, destination } = result;
     if (source.droppableId !== destination.droppableId) {
+      // what column we take from
       const sourceColumn = columns[source.droppableId];
+      // what column we change to
       const destColumn = columns[destination.droppableId];
       const sourceItems = [...sourceColumn.tasks];
       const destItems = [...destColumn.tasks];
@@ -26,12 +28,12 @@ const Kanban = ({ boards, setBoards, currentBoard }) => {
         },
       });
     } else {
-      const column = boards[source.droppableId];
-      const copiedItems = [...boards.tasks];
+      const column = columns[source.droppableId];
+      const copiedItems = [...column.tasks];
       const [removed] = copiedItems.splice(source.index, 1);
       copiedItems.splice(destination.index, 0, removed);
       setBoards({
-        ...boards,
+        ...columns,
         [source.droppableId]: {
           ...column,
           tasks: copiedItems,
@@ -43,20 +45,17 @@ const Kanban = ({ boards, setBoards, currentBoard }) => {
   return (
     <div className="Kanban">
       <DragDropContext onDragEnd={(result) => onDragEnd(result, boards)}>
-        {/* boards[0] is for the current selected board */}
-        {Object.entries(boards).map(([columnId, column], index) => {
+        {Object.entries(boards).map(([columnId, column]) => {
           return (
             <div key={columnId}>
-              <h4>{column.name}</h4>
               <div>
-                <Droppable droppableId={columnId} key={columnId} index={index}>
+                <h4 className="column-name">
+                  {column.name} ({column.tasks.length})
+                </h4>
+                <Droppable droppableId={columnId} key={columnId}>
                   {(provided) => {
                     return (
-                      <div
-                        className="column"
-                        {...provided.droppableProps}
-                        ref={provided.innerRef}
-                      >
+                      <div className="column" ref={provided.innerRef}>
                         {column.tasks.map((item, index) => {
                           return (
                             <Draggable
@@ -78,7 +77,8 @@ const Kanban = ({ boards, setBoards, currentBoard }) => {
                                       ...provided.draggableProps.style,
                                     }}
                                   >
-                                    {item.title}
+                                    <h4>{item.title}</h4>
+                                    <p>subtasks</p>
                                   </div>
                                 );
                               }}

@@ -16,7 +16,11 @@ function App() {
 
   return (
     <div className="App">
-      <Layout boards={data.boards} setCurrentBoard={setCurrentBoard}>
+      <Layout
+        boards={data.boards}
+        setCurrentBoard={setCurrentBoard}
+        currentBoard={currentBoard}
+      >
         <Kanban
           boards={boards}
           setBoards={setBoards}

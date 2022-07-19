@@ -3,7 +3,7 @@ import "../App.css";
 import Logo from "../assets/logo-light.svg";
 import dots from "../assets/icon-vertical-ellipsis.svg";
 
-const Layout = ({ children, boards, setCurrentBoard }) => {
+const Layout = ({ children, boards, setCurrentBoard, currentBoard }) => {
   console.log(boards);
   return (
     <>
@@ -26,7 +26,7 @@ const Layout = ({ children, boards, setCurrentBoard }) => {
           </div>
         </div>
         <div className="header">
-          <h1>{boards.name}</h1>
+          <h1>{boards[currentBoard].name}</h1>
           <div>
             <button>+ Add New Task</button>
             <img src={dots} alt="" />
