@@ -2,26 +2,29 @@ import React from "react";
 import "../App.css";
 import Logo from "../assets/logo-light.svg";
 import dots from "../assets/icon-vertical-ellipsis.svg";
-
+import boardImg from "../assets/icon-board.svg";
 const Layout = ({ children, boards, setCurrentBoard, currentBoard }) => {
   console.log(boards);
   return (
     <>
       <div className="container">
         <div className="sidebar">
-          <img src={Logo} alt="" />
+          <img src={Logo} alt="" className="logo" />
           <div className="sidebar-boards">
-            <p className="sidebar-p">All boards ({boards.length})</p>
+            <h4>All boards ({boards.length})</h4>
             <div>
               {boards.map((item, index) => (
                 <div
                   className="list-board"
                   onClick={() => setCurrentBoard(index)}
                 >
+                  <img src={boardImg} alt="board" />
                   {item.name}
                 </div>
               ))}
-              <div className="list-board blue">+ Create New Board</div>
+              <div className="list-board blue">
+                <img src={boardImg} alt="board" />+ Create New Board
+              </div>
             </div>
           </div>
         </div>
