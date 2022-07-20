@@ -10,6 +10,12 @@ const Layout = ({
   currentBoard,
   setIsModalOpen,
 }) => {
+  const handleChosen = (item) => {
+    if (item.name === boards[currentBoard].name) {
+      return "list-board active";
+    }
+    return "list-board";
+  };
   return (
     <>
       <div className="container">
@@ -20,7 +26,7 @@ const Layout = ({
             <div>
               {boards.map((item, index) => (
                 <div
-                  className="list-board"
+                  className={handleChosen(item)}
                   onClick={() => setCurrentBoard(index)}
                 >
                   <img src={boardImg} alt="board" />
