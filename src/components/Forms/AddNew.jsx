@@ -39,7 +39,7 @@ const AddNewTaskForm = ({ setIsModalOpen }) => {
           <div className="field-wrapper">
             <label htmlFor="title">Subtasks</label>
             {Array.from(Array(subTaskAmount)).map((_, index) => (
-              <div className="subtask-item">
+              <div className="subtask-item" key={index}>
                 <Field
                   placeholder="e.g Make coffee"
                   name={`subtasks[${index}].name`}

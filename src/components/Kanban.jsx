@@ -1,6 +1,6 @@
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
-const Kanban = ({ boards, setBoards, currentBoard }) => {
+const Kanban = ({ boards, setBoards, setSelectedTask, setIsModalOpen }) => {
   const onDragEnd = (result, columns) => {
     if (!result.destination) return;
 
@@ -63,6 +63,10 @@ const Kanban = ({ boards, setBoards, currentBoard }) => {
                               {(provided, snapshot) => {
                                 return (
                                   <div
+                                    onClick={() => {
+                                      setSelectedTask(item);
+                                      setIsModalOpen(true);
+                                    }}
                                     className="card"
                                     ref={provided.innerRef}
                                     {...provided.draggableProps}

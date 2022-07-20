@@ -11,6 +11,7 @@ function App() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [selectedTask, setSelectedTask] = useState({});
   useEffect(() => {
     setBoards({
       ...data.boards[currentBoard].columns,
@@ -18,8 +19,14 @@ function App() {
   }, [currentBoard]);
 
   return (
-    <>
-      {isModalOpen && <Modal setIsModalOpen={setIsModalOpen} />}
+    <div>
+      {isModalOpen && (
+        <Modal
+          setIsModalOpen={setIsModalOpen}
+          selectedTask={selectedTask}
+          setSelectedTask={setSelectedTask}
+        />
+      )}
       <Layout
         boards={data.boards}
         setCurrentBoard={setCurrentBoard}
@@ -31,9 +38,10 @@ function App() {
           setBoards={setBoards}
           currentBoard={currentBoard}
           setIsModalOpen={setIsModalOpen}
+          setSelectedTask={setSelectedTask}
         />
       </Layout>
-    </>
+    </div>
   );
 }
 
