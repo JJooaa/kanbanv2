@@ -1,10 +1,15 @@
-import React from "react";
-import "../App.css";
+import "../styles/App.css";
 import Logo from "../assets/logo-light.svg";
 import dots from "../assets/icon-vertical-ellipsis.svg";
 import boardImg from "../assets/icon-board.svg";
-const Layout = ({ children, boards, setCurrentBoard, currentBoard }) => {
-  console.log(boards);
+
+const Layout = ({
+  children,
+  boards,
+  setCurrentBoard,
+  currentBoard,
+  setIsModalOpen,
+}) => {
   return (
     <>
       <div className="container">
@@ -31,11 +36,12 @@ const Layout = ({ children, boards, setCurrentBoard, currentBoard }) => {
         <div className="header">
           <h1>{boards[currentBoard].name}</h1>
           <div>
-            <button>+ Add New Task</button>
+            <button onClick={() => setIsModalOpen(true)}>+ Add New Task</button>
+            {/* Has edit Board and Delete board */}
             <img src={dots} alt="" />
           </div>
         </div>
-        <div className="test">{children}</div>
+        <main className="test">{children}</main>
       </div>
     </>
   );

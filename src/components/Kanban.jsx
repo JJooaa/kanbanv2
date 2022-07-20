@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 const Kanban = ({ boards, setBoards, currentBoard }) => {
@@ -7,9 +6,7 @@ const Kanban = ({ boards, setBoards, currentBoard }) => {
 
     const { source, destination } = result;
     if (source.droppableId !== destination.droppableId) {
-      // what column we take from
       const sourceColumn = columns[source.droppableId];
-      // what column we change to
       const destColumn = columns[destination.droppableId];
       const sourceItems = [...sourceColumn.tasks];
       const destItems = [...destColumn.tasks];
@@ -95,6 +92,7 @@ const Kanban = ({ boards, setBoards, currentBoard }) => {
           );
         })}
       </DragDropContext>
+      <div className="add-new-column">+ New Column</div>
     </div>
   );
 };
