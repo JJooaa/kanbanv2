@@ -19,7 +19,6 @@
   width: 300px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
 }
 
 .card {
@@ -29,6 +28,7 @@
   width: 280px;
   background-color: #2b2c37;
   box-shadow: 0px 4px 6px 0px #364e7e1a;
+  margin: 10px 0px;
 }
 
 .card p {
