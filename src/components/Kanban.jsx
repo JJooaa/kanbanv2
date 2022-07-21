@@ -1,6 +1,11 @@
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
-const Kanban = ({ boards, setBoards, setSelectedTask, setIsModalOpen }) => {
+const Kanban = ({
+  currentColumns,
+  setCurrentColumns,
+  setSelectedTask,
+  setIsModalOpen,
+}) => {
   const onDragEnd = (result, columns) => {
     if (!result.destination) return;
 
@@ -13,7 +18,7 @@ const Kanban = ({ boards, setBoards, setSelectedTask, setIsModalOpen }) => {
       const [removed] = sourceItems.splice(source.index, 1);
       destItems.splice(destination.index, 0, removed);
 
-      setBoards({
+      setCurrentColumns({
         ...columns,
         [source.droppableId]: {
           ...sourceColumn,
@@ -29,7 +34,7 @@ const Kanban = ({ boards, setBoards, setSelectedTask, setIsModalOpen }) => {
       const copiedItems = [...column.tasks];
       const [removed] = copiedItems.splice(source.index, 1);
       copiedItems.splice(destination.index, 0, removed);
-      setBoards({
+      setCurrentColumns({
         ...columns,
         [source.droppableId]: {
           ...column,
@@ -39,10 +44,23 @@ const Kanban = ({ boards, setBoards, setSelectedTask, setIsModalOpen }) => {
     }
   };
 
+  const addNewColumn = () => {
+    const newColumn = {
+      name: "Tests",
+      tasks: [],
+    };
+    setCurrentColumns({
+      ...currentColumns,
+      newColumn,
+    });
+  };
+
   return (
     <div className="Kanban">
-      <DragDropContext onDragEnd={(result) => onDragEnd(result, boards)}>
-        {Object.entries(boards).map(([columnId, column]) => {
+      <DragDropContext
+        onDragEnd={(result) => onDragEnd(result, currentColumns)}
+      >
+        {Object.entries(currentColumns).map(([columnId, column]) => {
           return (
             <div key={columnId}>
               <div>
@@ -65,7 +83,7 @@ const Kanban = ({ boards, setBoards, setSelectedTask, setIsModalOpen }) => {
                                   <div
                                     onClick={() => {
                                       setSelectedTask(item);
-                                      setIsModalOpen(true);
+                                      setIsModalOpen("view_task");
                                     }}
                                     className="card"
                                     ref={provided.innerRef}
@@ -96,7 +114,9 @@ const Kanban = ({ boards, setBoards, setSelectedTask, setIsModalOpen }) => {
           );
         })}
       </DragDropContext>
-      <div className="add-new-column">+ New Column</div>
+      <div className="add-new-column" onClick={addNewColumn}>
+        + New Column
+      </div>
     </div>
   );
 };

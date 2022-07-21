@@ -3,12 +3,20 @@ import "../styles/modal.css";
 import AddNewTaskForm from "./Forms/AddNew";
 import ViewTask from "./Forms/ViewTask";
 import { useClickAway } from "react-use";
+import NewBoard from "./Forms/NewBoard";
 
-const Modal = ({ setIsModalOpen, selectedTask, setSelectedTask }) => {
+const Modal = ({
+  isModalOpen,
+  setIsModalOpen,
+  selectedTask,
+  setSelectedTask,
+  copy,
+  setCopy,
+}) => {
   const ref = useRef(null);
 
+  console.log(copy);
   useClickAway(ref, () => {
-    console.log("here");
     setIsModalOpen(false);
     setSelectedTask({});
   });
@@ -16,10 +24,13 @@ const Modal = ({ setIsModalOpen, selectedTask, setSelectedTask }) => {
   return (
     <div className="modal-background">
       <div className="modal" ref={ref}>
-        {selectedTask.title && <ViewTask selectedTask={selectedTask} />}
-        {!selectedTask.title && (
+        {isModalOpen === "view_task" && (
+          <ViewTask selectedTask={selectedTask} />
+        )}
+        {isModalOpen === "add_new_task" && (
           <AddNewTaskForm setIsModalOpen={setIsModalOpen} />
         )}
+        {isModalOpen === "add_new_board" && <NewBoard />}
       </div>
     </div>
   );

@@ -19,9 +19,12 @@ const ViewTask = ({ selectedTask }) => {
           Subtasks ({amountOfCompletion} of {selectedTask.subtasks.length})
         </h4>
         {selectedTask.subtasks.map((task) => (
-          <div className={`subtask ${task.isCompleted && "line-through"}`}>
+          <div
+            className={`subtask ${task.isCompleted && "line-through"}`}
+            key={task.title}
+          >
             <img
-              src={task.isCompleted && checkIcon}
+              src={task.isCompleted ? checkIcon : undefined}
               alt=""
               className={task.isCompleted ? "completed" : "not-completed"}
             />

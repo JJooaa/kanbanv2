@@ -5,44 +5,46 @@ import boardImg from "../assets/icon-board.svg";
 
 const Layout = ({
   children,
-  boards,
+  copy,
   setCurrentBoard,
   currentBoard,
   setIsModalOpen,
 }) => {
-  const handleChosen = (item) => {
-    if (item.name === boards[currentBoard].name) {
-      return "list-board active";
-    }
-    return "list-board";
-  };
   return (
     <>
       <div className="container">
         <div className="sidebar">
           <img src={Logo} alt="" className="logo" />
           <div className="sidebar-boards">
-            <h4>All boards ({boards.length})</h4>
+            <h4>All boards ({copy.length})</h4>
             <div>
-              {boards.map((item, index) => (
+              {copy.map((item, index) => (
                 <div
-                  className={handleChosen(item)}
+                  className={`list-board ${
+                    item.name === copy[currentBoard].name && "active"
+                  }`}
                   onClick={() => setCurrentBoard(index)}
                 >
                   <img src={boardImg} alt="board" />
                   {item.name}
                 </div>
               ))}
-              <div className="list-board blue">
-                <img src={boardImg} alt="board" />+ Create New Board
+              <div
+                className="list-board blue"
+                onClick={() => setIsModalOpen("add_new_board")}
+              >
+                <img src={boardImg} alt="board" className="blue-board" />+
+                Create New Board
               </div>
             </div>
           </div>
         </div>
         <div className="header">
-          <h1>{boards[currentBoard].name}</h1>
+          <h1>{copy[currentBoard].name}</h1>
           <div>
-            <button onClick={() => setIsModalOpen(true)}>+ Add New Task</button>
+            <button onClick={() => setIsModalOpen("add_new_task")}>
+              + Add New Task
+            </button>
             {/* Has edit Board and Delete board */}
             <img src={dots} alt="" />
           </div>
