@@ -23,7 +23,10 @@ const Modal = ({
     <div className="modal-background">
       <div className="modal" ref={ref}>
         {isModalOpen === "view_task" && (
-          <ViewTask selectedTask={selectedTask} />
+          <ViewTask
+            selectedTask={selectedTask}
+            setIsModalOpen={setIsModalOpen}
+          />
         )}
         {isModalOpen === "add_new_task" && (
           <AddNewTaskForm setIsModalOpen={setIsModalOpen} />
@@ -31,7 +34,9 @@ const Modal = ({
         {isModalOpen === "add_new_board" && (
           <NewBoard setIsModalOpen={setIsModalOpen} />
         )}
-        {isModalOpen === "delete" && <Delete setIsModalOpen={setIsModalOpen} />}
+        {isModalOpen === "delete" && (
+          <Delete setIsModalOpen={setIsModalOpen} selectedTask={selectedTask} />
+        )}
       </div>
     </div>
   );

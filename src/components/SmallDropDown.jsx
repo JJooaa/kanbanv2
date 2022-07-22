@@ -3,7 +3,12 @@ import "../styles/dropdown.css";
 import { useClickAway } from "react-use";
 import { CopyContext } from "./App";
 
-const SmallDropDown = ({ name, setShowDropDown, selectedTask }) => {
+const SmallDropDown = ({
+  name,
+  setShowDropDown,
+  selectedTask,
+  setIsModalOpen,
+}) => {
   const { copy, setCopy, currentColumns, setCurrentColumns } =
     useContext(CopyContext);
 
@@ -13,17 +18,18 @@ const SmallDropDown = ({ name, setShowDropDown, selectedTask }) => {
   });
 
   const handleDelete = () => {
+    setIsModalOpen("delete");
     // first find the column that the current selectedTask lives in
-    let taskInColumn = Object.values(currentColumns).find(
-      (column) => column.name === selectedTask.status
-    );
-    // remove it and return us a new array
-    let updatedTaskArray = taskInColumn.tasks.filter(
-      (item) => item.key !== selectedTask.key
-    );
-    console.log(currentColumns, "current columns");
-    console.log(taskInColumn, "the task in the current column");
-    console.log(updatedTaskArray, "the updated column");
+    // let taskInColumn = Object.values(currentColumns).find(
+    //   (column) => column.name === selectedTask.status
+    // );
+    // // remove it and return us a new array
+    // let updatedTaskArray = taskInColumn.tasks.filter(
+    //   (item) => item.key !== selectedTask.key
+    // );
+    // console.log(currentColumns, "current columns");
+    // console.log(taskInColumn, "the task in the current column");
+    // console.log(updatedTaskArray, "the updated column");
   };
 
   return (
