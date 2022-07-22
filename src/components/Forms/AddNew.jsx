@@ -4,7 +4,7 @@ import "../../styles/form.css";
 import cross from "../../assets/icon-cross.svg";
 
 const AddNewTaskForm = ({ setIsModalOpen }) => {
-  const [subTaskAmount, setSubTaskAmount] = useState(2);
+  const [subTaskAmount, setSubTaskAmount] = useState(1);
 
   const initialValues = {
     title: "",
@@ -53,13 +53,19 @@ const AddNewTaskForm = ({ setIsModalOpen }) => {
               </div>
             ))}
             <button
-              className="new-subtask"
+              type="button"
+              className="button"
               onClick={() => setSubTaskAmount((prev) => (prev += 1))}
             >
               + Add New Subtask
             </button>
           </div>
-          <button type="submit">Submit</button>
+          <div className="field-wrapper">
+            <label htmlFor="status">Status</label>
+          </div>
+          <button type="submit" className="button submit">
+            Create Task
+          </button>
         </Form>
       </Formik>
     </>

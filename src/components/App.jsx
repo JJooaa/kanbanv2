@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext } from "react";
 import "../styles/App.css";
 import Layout from "./Layout";
 import Kanban from "./Kanban";
 import data from "../data.json";
 import Modal from "./Modal";
+
+export const CopyContext = createContext();
 
 function App() {
   // index for choosing currentColumns from the copy array
@@ -25,32 +27,33 @@ function App() {
   }, [currentBoard]);
 
   return (
-    <div>
-      {isModalOpen && (
-        <Modal
-          isModalOpen={isModalOpen}
-          setIsModalOpen={setIsModalOpen}
-          selectedTask={selectedTask}
-          setSelectedTask={setSelectedTask}
-          copy={copy}
-          setCopy={setCopy}
-        />
-      )}
-      <Layout
-        copy={copy}
-        setCurrentBoard={setCurrentBoard}
-        currentBoard={currentBoard}
-        setIsModalOpen={setIsModalOpen}
-      >
-        <Kanban
-          currentColumns={currentColumns}
-          setCurrentColumns={setCurrentColumns}
+    <CopyContext.Provider
+      value={{ copy, setCopy, currentColumns, setCurrentColumns }}
+    >
+      <div>
+        {isModalOpen && (
+          <Modal
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+            selectedTask={selectedTask}
+            setSelectedTask={setSelectedTask}
+          />
+        )}
+        <Layout
+          setCurrentBoard={setCurrentBoard}
           currentBoard={currentBoard}
           setIsModalOpen={setIsModalOpen}
-          setSelectedTask={setSelectedTask}
-        />
-      </Layout>
-    </div>
+        >
+          <Kanban
+            currentColumns={currentColumns}
+            setCurrentColumns={setCurrentColumns}
+            currentBoard={currentBoard}
+            setIsModalOpen={setIsModalOpen}
+            setSelectedTask={setSelectedTask}
+          />
+        </Layout>
+      </div>
+    </CopyContext.Provider>
   );
 }
 

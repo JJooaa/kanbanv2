@@ -44,6 +44,7 @@ const Kanban = ({
     }
   };
 
+  // TODO, clicking the empty div, will open edit board modal
   const addNewColumn = () => {
     const newColumn = {
       name: "Tests",
@@ -82,7 +83,7 @@ const Kanban = ({
                                 return (
                                   <div
                                     onClick={() => {
-                                      setSelectedTask(item);
+                                      setSelectedTask(item, (item.key = index));
                                       setIsModalOpen("view_task");
                                     }}
                                     className="card"

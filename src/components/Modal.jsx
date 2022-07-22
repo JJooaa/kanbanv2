@@ -4,14 +4,13 @@ import AddNewTaskForm from "./Forms/AddNew";
 import ViewTask from "./Forms/ViewTask";
 import { useClickAway } from "react-use";
 import NewBoard from "./Forms/NewBoard";
+import Delete from "./Delete";
 
 const Modal = ({
   isModalOpen,
   setIsModalOpen,
   selectedTask,
   setSelectedTask,
-  copy,
-  setCopy,
 }) => {
   const ref = useRef(null);
 
@@ -30,8 +29,9 @@ const Modal = ({
           <AddNewTaskForm setIsModalOpen={setIsModalOpen} />
         )}
         {isModalOpen === "add_new_board" && (
-          <NewBoard copy={copy} setCopy={setCopy} />
+          <NewBoard setIsModalOpen={setIsModalOpen} />
         )}
+        {isModalOpen === "delete" && <Delete setIsModalOpen={setIsModalOpen} />}
       </div>
     </div>
   );

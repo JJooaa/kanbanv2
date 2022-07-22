@@ -2,14 +2,16 @@ import "../styles/App.css";
 import Logo from "../assets/logo-light.svg";
 import dots from "../assets/icon-vertical-ellipsis.svg";
 import boardImg from "../assets/icon-board.svg";
+import { useContext } from "react";
+import { CopyContext } from "./App";
 
 const Layout = ({
   children,
-  copy,
   setCurrentBoard,
   currentBoard,
   setIsModalOpen,
 }) => {
+  const { copy, setCopy } = useContext(CopyContext);
   return (
     <>
       <div className="container">

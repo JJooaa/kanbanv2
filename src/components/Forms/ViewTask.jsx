@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/form.css";
 import checkIcon from "../../assets/icon-check.svg";
+import dots from "../../assets/icon-vertical-ellipsis.svg";
+import SmallDropDown from "../SmallDropDown";
 
-const ViewTask = ({ selectedTask }) => {
+const ViewTask = ({ selectedTask, setIsModalOpen }) => {
   const [amountOfCompletion, setAmountOfCompletion] = useState(0);
+  const [showDropDown, setShowDropDown] = useState(false);
+
   useEffect(() => {
     setAmountOfCompletion(
       selectedTask.subtasks.filter((item) => item.isCompleted === true).length
@@ -12,7 +16,23 @@ const ViewTask = ({ selectedTask }) => {
 
   return (
     <div className="view-task-content">
-      <h1>{selectedTask.title}</h1>
+      <div className="view-task-title">
+        <h1>{selectedTask.title}</h1>
+        <img
+          src={dots}
+          alt="dots"
+          onClick={() => setShowDropDown((prev) => !prev)}
+        />
+        {showDropDown && (
+          <SmallDropDown
+            name="Task"
+            setShowDropDown={setShowDropDown}
+            selectedTask={selectedTask}
+            setIsModalOpen={setIsModalOpen}
+          />
+        )}
+      </div>
+
       <h3>{selectedTask.description}</h3>
       <div>
         <h4>
