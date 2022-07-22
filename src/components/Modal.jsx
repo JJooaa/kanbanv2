@@ -15,7 +15,6 @@ const Modal = ({
 }) => {
   const ref = useRef(null);
 
-  console.log(copy);
   useClickAway(ref, () => {
     setIsModalOpen(false);
     setSelectedTask({});
@@ -30,7 +29,9 @@ const Modal = ({
         {isModalOpen === "add_new_task" && (
           <AddNewTaskForm setIsModalOpen={setIsModalOpen} />
         )}
-        {isModalOpen === "add_new_board" && <NewBoard />}
+        {isModalOpen === "add_new_board" && (
+          <NewBoard copy={copy} setCopy={setCopy} />
+        )}
       </div>
     </div>
   );

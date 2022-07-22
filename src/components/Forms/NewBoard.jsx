@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import cross from "../../assets/icon-cross.svg";
-const NewBoard = () => {
+
+const NewBoard = ({ setCopy, copy }) => {
   const [columnAmount, setColumnAmount] = useState(1);
 
   return (
@@ -10,16 +11,17 @@ const NewBoard = () => {
       <Formik
         initialValues={{ name: "", columns: [] }}
         onSubmit={(values) => {
-          console.log(values);
+          values.columns.map((column) => (column.tasks = []));
+          setCopy((prevState) => [...prevState, values]);
         }}
       >
         <Form className="form">
           <div className="field-wrapper">
-            <label htmlFor="name">Name</label>
+            <label htmlFor="name">Board Name</label>
             <Field name="name" className="input" />
           </div>
           <div className="field-wrapper">
-            <label htmlFor="name">Name</label>
+            <label htmlFor="name">Board Columns</label>
             {Array.from(Array(columnAmount)).map((_, index) => (
               <div className="subtask-item" key={index}>
                 <Field
@@ -36,10 +38,14 @@ const NewBoard = () => {
             ))}
           </div>
           <button
-            className="new-subtask"
+            className="button"
+            type="button"
             onClick={() => setColumnAmount((prev) => (prev += 1))}
           >
             + Add New Column
+          </button>
+          <button className="button submit" type="submit">
+            Create New Board
           </button>
         </Form>
       </Formik>
