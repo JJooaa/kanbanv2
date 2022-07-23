@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import "../../styles/form.css";
 import cross from "../../assets/icon-cross.svg";
+import { CopyContext } from "../App";
 
 const AddNewTaskForm = ({ setIsModalOpen }) => {
   const [subTaskAmount, setSubTaskAmount] = useState(1);
+
+  const { copy, setCopy, currentColumns, setCurrentColumns } =
+    useContext(CopyContext);
 
   const initialValues = {
     title: "",
     description: "",
     subtasks: [],
-    status: "",
+    status: "Todo",
   };
 
   return (
@@ -19,8 +23,18 @@ const AddNewTaskForm = ({ setIsModalOpen }) => {
       <Formik
         initialValues={initialValues}
         onSubmit={(values) => {
-          console.log(values);
-          setIsModalOpen(false);
+          values.subtasks.map((task) => (task.isCompleted = false));
+          let index = Object.entries(currentColumns).findIndex(
+            ([id, column]) => column.name === values.status && id
+          );
+          let newTasksArray = [...currentColumns[index].tasks, { ...values }];
+          setCurrentColumns({
+            ...currentColumns,
+            [index]: {
+              ...currentColumns[index],
+              tasks: newTasksArray,
+            },
+          });
         }}
       >
         <Form className="form">
@@ -42,7 +56,7 @@ const AddNewTaskForm = ({ setIsModalOpen }) => {
               <div className="subtask-item" key={index}>
                 <Field
                   placeholder="e.g Make coffee"
-                  name={`subtasks[${index}].name`}
+                  name={`subtasks[${index}].title`}
                   className="input"
                 />
                 <img
