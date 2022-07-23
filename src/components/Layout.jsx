@@ -22,6 +22,7 @@ const Layout = ({
             <div>
               {copy.map((item, index) => (
                 <div
+                  key={item.name}
                   className={`list-board ${
                     item.name === copy[currentBoard].name && "active"
                   }`}
