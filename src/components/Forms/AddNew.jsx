@@ -3,12 +3,12 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import "../../styles/form.css";
 import cross from "../../assets/icon-cross.svg";
 import { CopyContext } from "../App";
+import Dropdown from "./Dropdown";
 
 const AddNewTaskForm = ({ setIsModalOpen }) => {
   const [subTaskAmount, setSubTaskAmount] = useState(1);
 
-  const { copy, setCopy, currentColumns, setCurrentColumns } =
-    useContext(CopyContext);
+  const { currentColumns, setCurrentColumns } = useContext(CopyContext);
 
   const initialValues = {
     title: "",
@@ -39,52 +39,61 @@ const AddNewTaskForm = ({ setIsModalOpen }) => {
               tasks: newTasksArray,
             },
           });
+          setIsModalOpen(false);
         }}
       >
-        <Form className="form">
-          <div className="field-wrapper">
-            <label htmlFor="title">Title</label>
-            <Field name="title" className="input" />
-          </div>
-          <div className="field-wrapper">
-            <label htmlFor="title">Description</label>
-            <Field
-              name="description"
-              as="textarea"
-              className="input textarea"
-            />
-          </div>
-          <div className="field-wrapper">
-            <label htmlFor="title">Subtasks</label>
-            {Array.from(Array(subTaskAmount)).map((_, index) => (
-              <div className="subtask-item" key={index}>
-                <Field
-                  placeholder="e.g Make coffee"
-                  name={`subtasks[${index}].title`}
-                  className="input"
-                />
-                <img
-                  src={cross}
-                  alt="cross"
-                  onClick={() => setSubTaskAmount((prev) => (prev -= 1))}
-                />
-              </div>
-            ))}
-            <button
-              type="button"
-              className="button"
-              onClick={() => setSubTaskAmount((prev) => (prev += 1))}
-            >
-              + Add New Subtask
+        {(values) => (
+          <Form className="form">
+            <div className="field-wrapper">
+              <label htmlFor="title">Title</label>
+              <Field name="title" className="input" />
+            </div>
+            <div className="field-wrapper">
+              <label htmlFor="title">Description</label>
+              <Field
+                name="description"
+                as="textarea"
+                className="input textarea"
+              />
+            </div>
+            <div className="field-wrapper">
+              <label htmlFor="title">Subtasks</label>
+              {Array.from(Array(subTaskAmount)).map((_, index) => (
+                <div className="subtask-item" key={index}>
+                  <Field
+                    placeholder="e.g Make coffee"
+                    name={`subtasks[${index}].title`}
+                    className="input"
+                  />
+                  <img
+                    src={cross}
+                    alt="cross"
+                    onClick={() => setSubTaskAmount((prev) => (prev -= 1))}
+                  />
+                </div>
+              ))}
+              <button
+                type="button"
+                className="button"
+                onClick={() => setSubTaskAmount((prev) => (prev += 1))}
+              >
+                + Add New Subtask
+              </button>
+            </div>
+            <div className="field-wrapper">
+              <label htmlFor="status">Status</label>
+              <Field
+                className="input"
+                value={values.values.status}
+                name="status"
+              />
+              <Dropdown currentColumns={currentColumns} name="status" />
+            </div>
+            <button type="submit" className="button submit">
+              Create Task
             </button>
-          </div>
-          <div className="field-wrapper">
-            <label htmlFor="status">Status</label>
-          </div>
-          <button type="submit" className="button submit">
-            Create Task
-          </button>
-        </Form>
+          </Form>
+        )}
       </Formik>
     </>
   );
