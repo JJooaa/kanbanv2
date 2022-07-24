@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../../styles/form.css";
 import checkIcon from "../../assets/icon-check.svg";
 import dots from "../../assets/icon-vertical-ellipsis.svg";
 import SmallDropDown from "../SmallDropDown";
+import { CopyContext } from "../App";
 
 const ViewTask = ({ selectedTask, setIsModalOpen }) => {
+  const { currentColumns } = useContext(CopyContext);
   const [amountOfCompletion, setAmountOfCompletion] = useState(0);
   const [showDropDown, setShowDropDown] = useState(false);
 
+  console.log(selectedTask);
   useEffect(() => {
     setAmountOfCompletion(
       selectedTask.subtasks.filter((item) => item.isCompleted === true).length
@@ -52,7 +55,10 @@ const ViewTask = ({ selectedTask, setIsModalOpen }) => {
           </div>
         ))}
       </div>
-      <h4>Current Status</h4>
+      <div>
+        <h4 className="current-status">Current Status</h4>
+        <input value={selectedTask.status} className="input" />
+      </div>
     </div>
   );
 };
