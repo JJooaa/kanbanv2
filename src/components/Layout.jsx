@@ -78,6 +78,14 @@ const Layout = ({
             )}
           </div>
         </div>
+        {!showSideBar && (
+          <div
+            className="list-board absolute"
+            onClick={() => setShowSideBar(true)}
+          >
+            <img src={showBar} alt="eyes closed" />
+          </div>
+        )}
         <main className={showSideBar ? "test" : "test full"}>{children}</main>
       </div>
     </>
