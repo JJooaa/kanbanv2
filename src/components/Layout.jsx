@@ -17,43 +17,48 @@ const Layout = ({
   const { copy } = useContext(CopyContext);
   const [showDropDown, setShowDropDown] = useState(false);
 
+  const [showSideBar, setShowSideBar] = useState(true);
+
   return (
     <>
       <div className="container">
-        <div className="sidebar">
-          <div>
-            <img src={Logo} alt="" className="logo" />
-            <div className="sidebar-boards">
-              <h4>ALL BOARDS({copy.length})</h4>
-              <div>
-                {copy.map((item, index) => (
+        {showSideBar && (
+          <div className="sidebar">
+            <div>
+              <img src={Logo} alt="" className="logo" />
+              <div className="sidebar-boards">
+                <h4>ALL BOARDS({copy.length})</h4>
+                <div>
+                  {copy.map((item, index) => (
+                    <div
+                      key={item.name}
+                      className={`list-board ${
+                        item.name === copy[currentBoard].name ? "active" : ""
+                      }`}
+                      onClick={() => setCurrentBoard(index)}
+                    >
+                      <img src={boardImg} alt="board" />
+                      {item.name}
+                    </div>
+                  ))}
                   <div
-                    key={item.name}
-                    className={`list-board ${
-                      item.name === copy[currentBoard].name ? "active" : ""
-                    }`}
-                    onClick={() => setCurrentBoard(index)}
+                    className="list-board blue"
+                    onClick={() => setIsModalOpen("add_new_board")}
                   >
-                    <img src={boardImg} alt="board" />
-                    {item.name}
+                    <img src={boardImg} alt="board" className="blue-board" />+
+                    Create New Board
                   </div>
-                ))}
-                <div
-                  className="list-board blue"
-                  onClick={() => setIsModalOpen("add_new_board")}
-                >
-                  <img src={boardImg} alt="board" className="blue-board" />+
-                  Create New Board
                 </div>
               </div>
             </div>
+            <div className="list-board" onClick={() => setShowSideBar(false)}>
+              <img src={hideBar} alt="eyes closed" /> Hide Sidebar
+            </div>
           </div>
-          <div className="list-board">
-            <img src={hideBar} alt="eyes closed" /> Hide Sidebar
-          </div>
-        </div>
-        <div className="header">
-          <h1>{copy[currentBoard].name}</h1>
+        )}
+        <div className={showSideBar ? "header" : "header full"}>
+          {!showSideBar && <img src={Logo} alt="" className="logo" />}
+          <h1 className={!showSideBar && "grow"}>{copy[currentBoard].name}</h1>
           <div className="parent">
             <button onClick={() => setIsModalOpen("task_form")}>
               + Add New Task
@@ -73,7 +78,7 @@ const Layout = ({
             )}
           </div>
         </div>
-        <main className="test">{children}</main>
+        <main className={showSideBar ? "test" : "test full"}>{children}</main>
       </div>
     </>
   );

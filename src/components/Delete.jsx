@@ -46,7 +46,8 @@ const Delete = ({ selectedTask, setIsModalOpen }) => {
           tasks: updatedTaskArray,
         },
       });
-    } else {
+    }
+    if (isTaskOrBoard === "board") {
       // if we have a board
       setCopy(copy.filter((board) => board.name !== copy[currentBoard].name));
       setCurrentBoard(0);
