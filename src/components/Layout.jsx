@@ -24,7 +24,7 @@ const Layout = ({
           <div>
             <img src={Logo} alt="" className="logo" />
             <div className="sidebar-boards">
-              <h4>All boards ({copy.length})</h4>
+              <h4>ALL BOARDS({copy.length})</h4>
               <div>
                 {copy.map((item, index) => (
                   <div

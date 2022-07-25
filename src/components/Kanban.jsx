@@ -58,6 +58,7 @@ const Kanban = ({
 
   let randomColorGenerator = () =>
     Math.floor(Math.random() * 16777215).toString(16);
+
   return (
     <div className="Kanban">
       <DragDropContext
@@ -108,7 +109,7 @@ const Kanban = ({
                                     {...provided.dragHandleProps}
                                     style={{
                                       backgroundColor: snapshot.isDragging
-                                        ? "#263B4A"
+                                        ? "#635fc750"
                                         : "#2B2C37",
                                       ...provided.draggableProps.style,
                                     }}
