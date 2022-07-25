@@ -56,6 +56,8 @@ const Kanban = ({
     });
   };
 
+  let randomColorGenerator = () =>
+    Math.floor(Math.random() * 16777215).toString(16);
   return (
     <div className="Kanban">
       <DragDropContext
@@ -64,10 +66,20 @@ const Kanban = ({
         {Object.entries(currentColumns).map(([columnId, column]) => {
           return (
             <div key={columnId}>
-              <div>
-                <h4 className="column-name">
-                  {column.name} ({column.tasks.length})
-                </h4>
+              <>
+                <div className="column-name-wrapper">
+                  <div
+                    style={{
+                      width: 15,
+                      height: 15,
+                      borderRadius: 50,
+                      backgroundColor: `#${randomColorGenerator()}`,
+                    }}
+                  ></div>
+                  <h4 className="column-name">
+                    {column.name} ({column.tasks.length})
+                  </h4>
+                </div>
                 <Droppable droppableId={columnId} key={columnId}>
                   {(provided) => {
                     return (
@@ -102,7 +114,14 @@ const Kanban = ({
                                     }}
                                   >
                                     <h4>{item.title}</h4>
-                                    <p>subtasks</p>
+                                    <p>
+                                      {
+                                        item.subtasks.filter(
+                                          (item) => item.isCompleted === true
+                                        ).length
+                                      }{" "}
+                                      of {item.subtasks.length} subtasks
+                                    </p>
                                   </div>
                                 );
                               }}
@@ -114,7 +133,7 @@ const Kanban = ({
                     );
                   }}
                 </Droppable>
-              </div>
+              </>
             </div>
           );
         })}

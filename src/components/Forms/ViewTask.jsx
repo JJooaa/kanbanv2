@@ -16,7 +16,7 @@ const ViewTask = ({ selectedTask, setIsModalOpen }) => {
     );
   }, [selectedTask]);
 
-  console.log(selectedTask);
+  console.log(selectedTask)
   return (
     <div className="view-task-content">
       <div className="view-task-title">
