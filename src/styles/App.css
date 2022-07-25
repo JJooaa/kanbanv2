@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&family=Roboto:wght@400;700&display=swap");
 
 body {
-  background: #20212c;
+  background: #191a22;
 }
 * {
   font-family: "Plus Jakarta Sans", sans-serif;
@@ -161,11 +161,16 @@ body {
   font-size: 24px;
 }
 
-.header div {
+.header > div {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 24px;
+}
+
+.header img {
+  padding: 5px;
+  cursor: pointer;
 }
 
 .header button {

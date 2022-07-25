@@ -24,3 +24,7 @@
   color: #ea5555;
   cursor: pointer;
 }
+
+.board {
+  right: 0;
+}

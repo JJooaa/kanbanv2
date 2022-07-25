@@ -2,8 +2,9 @@ import "../styles/App.css";
 import Logo from "../assets/logo-light.svg";
 import dots from "../assets/icon-vertical-ellipsis.svg";
 import boardImg from "../assets/icon-board.svg";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CopyContext } from "./App";
+import SmallDropDown from "./SmallDropDown";
 
 const Layout = ({
   children,
@@ -12,6 +13,7 @@ const Layout = ({
   setIsModalOpen,
 }) => {
   const { copy, setCopy } = useContext(CopyContext);
+  const [showDropDown, setShowDropDown] = useState(false);
   return (
     <>
       <div className="container">
@@ -44,12 +46,23 @@ const Layout = ({
         </div>
         <div className="header">
           <h1>{copy[currentBoard].name}</h1>
-          <div>
+          <div className="parent">
             <button onClick={() => setIsModalOpen("add_new_task")}>
               + Add New Task
             </button>
             {/* Has edit Board and Delete board */}
-            <img src={dots} alt="" />
+            <img
+              src={dots}
+              alt="dots vertically"
+              onClick={() => setShowDropDown(true)}
+            />
+            {showDropDown && (
+              <SmallDropDown
+                setShowDropDown={setShowDropDown}
+                name="Board"
+                setIsModalOpen={setIsModalOpen}
+              />
+            )}
           </div>
         </div>
         <main className="test">{children}</main>

@@ -10,6 +10,7 @@ const AddNewTaskForm = ({ setIsModalOpen }) => {
 
   const { currentColumns, setCurrentColumns } = useContext(CopyContext);
 
+  const [isOpen, setIsOpen] = useState(false);
   const initialValues = {
     title: "",
     description: "",
@@ -86,8 +87,14 @@ const AddNewTaskForm = ({ setIsModalOpen }) => {
                 className="input"
                 value={values.values.status}
                 name="status"
+                onClick={() => setIsOpen(true)}
               />
-              <Dropdown currentColumns={currentColumns} name="status" />
+              <Dropdown
+                currentColumns={currentColumns}
+                name="status"
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+              />
             </div>
             <button type="submit" className="button submit">
               Create Task

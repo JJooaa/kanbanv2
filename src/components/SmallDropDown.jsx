@@ -33,7 +33,10 @@ const SmallDropDown = ({
   };
 
   return (
-    <div className="small-dp-container" ref={ref}>
+    <div
+      className={`small-dp-container ${name === "Board" && "board"}`}
+      ref={ref}
+    >
       <div>Edit {name}</div>
       <div onClick={handleDelete}>Delete {name}</div>
     </div>

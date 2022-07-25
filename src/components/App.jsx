@@ -28,7 +28,18 @@ function App() {
 
   return (
     <CopyContext.Provider
-      value={{ copy, setCopy, currentColumns, setCurrentColumns }}
+      value={{
+        copy,
+        setCopy,
+        currentColumns,
+        setCurrentColumns,
+        currentBoard,
+        setCurrentBoard,
+        selectedTask,
+        setSelectedTask,
+        isModalOpen,
+        setIsModalOpen,
+      }}
     >
       <div>
         {isModalOpen && (
