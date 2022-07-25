@@ -19,17 +19,6 @@ const SmallDropDown = ({
 
   const handleDelete = () => {
     setIsModalOpen("delete");
-    // first find the column that the current selectedTask lives in
-    // let taskInColumn = Object.values(currentColumns).find(
-    //   (column) => column.name === selectedTask.status
-    // );
-    // // remove it and return us a new array
-    // let updatedTaskArray = taskInColumn.tasks.filter(
-    //   (item) => item.key !== selectedTask.key
-    // );
-    // console.log(currentColumns, "current columns");
-    // console.log(taskInColumn, "the task in the current column");
-    // console.log(updatedTaskArray, "the updated column");
   };
 
   return (
@@ -37,8 +26,10 @@ const SmallDropDown = ({
       className={`small-dp-container ${name === "Board" && "board"}`}
       ref={ref}
     >
-      <div>Edit {name}</div>
-      <div onClick={handleDelete}>Delete {name}</div>
+      <div onClick={() => name === "Task" && setIsModalOpen("task_form")}>
+        Edit {name}
+      </div>
+      <div onClick={() => setIsModalOpen("delete")}>Delete {name}</div>
     </div>
   );
 };

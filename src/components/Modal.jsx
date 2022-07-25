@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import "../styles/modal.css";
-import AddNewTaskForm from "./Forms/AddNew";
+import TaskForm from "./Forms/TaskForm";
 import ViewTask from "./Forms/ViewTask";
 import { useClickAway } from "react-use";
 import NewBoard from "./Forms/NewBoard";
@@ -28,8 +28,8 @@ const Modal = ({
             setIsModalOpen={setIsModalOpen}
           />
         )}
-        {isModalOpen === "add_new_task" && (
-          <AddNewTaskForm setIsModalOpen={setIsModalOpen} />
+        {isModalOpen === "task_form" && (
+          <TaskForm setIsModalOpen={setIsModalOpen} />
         )}
         {isModalOpen === "add_new_board" && (
           <NewBoard setIsModalOpen={setIsModalOpen} />

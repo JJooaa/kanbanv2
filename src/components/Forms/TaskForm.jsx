@@ -5,22 +5,25 @@ import cross from "../../assets/icon-cross.svg";
 import { CopyContext } from "../App";
 import Dropdown from "./Dropdown";
 
-const AddNewTaskForm = ({ setIsModalOpen }) => {
+const TaskForm = ({ setIsModalOpen }) => {
   const [subTaskAmount, setSubTaskAmount] = useState(1);
 
-  const { currentColumns, setCurrentColumns } = useContext(CopyContext);
+  const { currentColumns, setCurrentColumns, selectedTask } =
+    useContext(CopyContext);
 
   const [isOpen, setIsOpen] = useState(false);
   const initialValues = {
-    title: "",
-    description: "",
-    subtasks: [],
-    status: "Todo",
+    title: "" || selectedTask.title,
+    description: "" || selectedTask.description,
+    subtasks: [] || selectedTask.subtasks,
+    status: "" || selectedTask.status,
   };
+
+  let isSelectedTask = Object.entries(selectedTask).length ? false : true;
 
   return (
     <>
-      <h1>Add New Task </h1>
+      <h1>{isSelectedTask ? "Add New Task" : "Edit Task"}</h1>
       <Formik
         initialValues={initialValues}
         onSubmit={(values) => {
@@ -32,7 +35,7 @@ const AddNewTaskForm = ({ setIsModalOpen }) => {
           );
           // copy the old tasks and add a new task into a new array
           let newTasksArray = [...currentColumns[index].tasks, { ...values }];
-          
+
           // replace the currentColumns[index] so eg "Todos" array. With the newTaskArrays
           setCurrentColumns({
             ...currentColumns,
@@ -98,7 +101,7 @@ const AddNewTaskForm = ({ setIsModalOpen }) => {
               />
             </div>
             <button type="submit" className="button submit">
-              Create Task
+              {isSelectedTask ? "Create Task" : "Save Changes"}
             </button>
           </Form>
         )}
@@ -107,4 +110,4 @@ const AddNewTaskForm = ({ setIsModalOpen }) => {
   );
 };
 
-export default AddNewTaskForm;
+export default TaskForm;

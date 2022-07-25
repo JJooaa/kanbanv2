@@ -55,7 +55,7 @@ const Layout = ({
         <div className="header">
           <h1>{copy[currentBoard].name}</h1>
           <div className="parent">
-            <button onClick={() => setIsModalOpen("add_new_task")}>
+            <button onClick={() => setIsModalOpen("task_form")}>
               + Add New Task
             </button>
             {/* Has edit Board and Delete board */}
