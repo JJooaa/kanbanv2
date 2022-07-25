@@ -3,7 +3,13 @@ import "../styles/modal.css";
 import { CopyContext } from "./App";
 
 const Delete = ({ selectedTask, setIsModalOpen }) => {
-  const { copy, currentBoard, setSelectedTask } = useContext(CopyContext);
+  const {
+    copy,
+    currentBoard,
+    setSelectedTask,
+    setCurrentColumns,
+    currentColumns,
+  } = useContext(CopyContext);
 
   const boardDeletion = `Are you sure you want to delete the '${copy[currentBoard].name}' board? This action will remove all columns and tasks and cannot be reversed.`;
 
@@ -12,6 +18,27 @@ const Delete = ({ selectedTask, setIsModalOpen }) => {
   const handleClose = () => {
     setIsModalOpen(false);
     setSelectedTask({});
+  };
+
+  const handleDelete = () => {
+    //first find the column that the current selectedTask lives in
+    let columnOfSelectedTask = Object.values(currentColumns).find(
+      (column) => column.name === selectedTask.status
+    );
+
+    // remove it and return us a new array
+    let updatedTaskArray = columnOfSelectedTask.tasks.filter(
+      (item) => item.key !== selectedTask.key
+    );
+
+    setCurrentColumns({
+      ...currentColumns,
+      [selectedTask.key]: {
+        ...currentColumns[selectedTask.key],
+        tasks: updatedTaskArray,
+      },
+    });
+    handleClose();
   };
 
   return (
@@ -26,7 +53,7 @@ const Delete = ({ selectedTask, setIsModalOpen }) => {
           : boardDeletion}
       </p>
       <div>
-        <button className="button red" onClick={handleClose}>
+        <button className="button red" onClick={handleDelete}>
           Delete
         </button>
         <button className="button" onClick={handleClose}>

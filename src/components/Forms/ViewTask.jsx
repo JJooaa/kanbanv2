@@ -10,13 +10,13 @@ const ViewTask = ({ selectedTask, setIsModalOpen }) => {
   const [amountOfCompletion, setAmountOfCompletion] = useState(0);
   const [showDropDown, setShowDropDown] = useState(false);
 
-  console.log(selectedTask);
   useEffect(() => {
     setAmountOfCompletion(
       selectedTask.subtasks.filter((item) => item.isCompleted === true).length
     );
   }, [selectedTask]);
 
+  console.log(selectedTask);
   return (
     <div className="view-task-content">
       <div className="view-task-title">
@@ -57,7 +57,7 @@ const ViewTask = ({ selectedTask, setIsModalOpen }) => {
       </div>
       <div>
         <h4 className="current-status">Current Status</h4>
-        <input value={selectedTask.status} className="input" />
+        <input value={selectedTask.status} className="input" readOnly />
       </div>
     </div>
   );

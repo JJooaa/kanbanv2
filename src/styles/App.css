@@ -8,6 +8,10 @@ body {
   color: white;
 }
 
+button {
+  cursor: pointer;
+}
+
 .Kanban {
   display: flex;
   justify-content: space-evenly;
@@ -185,6 +189,11 @@ body {
   padding: 14px 24px;
   cursor: pointer;
 }
+
+.header button:hover {
+  background-color: #a8a4ff;
+}
+
 main {
   background-color: #20212c;
   grid-row-start: 2;

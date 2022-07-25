@@ -83,7 +83,10 @@ const Kanban = ({
                                 return (
                                   <div
                                     onClick={() => {
-                                      setSelectedTask(item, (item.key = index));
+                                      setSelectedTask(
+                                        item,
+                                        (item.key = columnId)
+                                      );
                                       setIsModalOpen("view_task");
                                     }}
                                     className="card"
