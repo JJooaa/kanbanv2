@@ -12,6 +12,7 @@
   padding: 16px;
   font-weight: normal;
   font-size: 13px;
+  z-index: 150;
   box-shadow: 0px 4px 6px 0px #0000001a;
 }
 
