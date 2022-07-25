@@ -12,8 +12,9 @@ const Layout = ({
   currentBoard,
   setIsModalOpen,
 }) => {
-  const { copy, setCopy } = useContext(CopyContext);
+  const { copy } = useContext(CopyContext);
   const [showDropDown, setShowDropDown] = useState(false);
+
   return (
     <>
       <div className="container">

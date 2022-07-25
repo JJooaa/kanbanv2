@@ -32,6 +32,7 @@ const AddNewTaskForm = ({ setIsModalOpen }) => {
           );
           // copy the old tasks and add a new task into a new array
           let newTasksArray = [...currentColumns[index].tasks, { ...values }];
+          
           // replace the currentColumns[index] so eg "Todos" array. With the newTaskArrays
           setCurrentColumns({
             ...currentColumns,

@@ -5,7 +5,9 @@ import { CopyContext } from "./App";
 const Delete = ({ selectedTask, setIsModalOpen }) => {
   const {
     copy,
+    setCopy,
     currentBoard,
+    setCurrentBoard,
     setSelectedTask,
     setCurrentColumns,
     currentColumns,
@@ -20,38 +22,42 @@ const Delete = ({ selectedTask, setIsModalOpen }) => {
     setSelectedTask({});
   };
 
+  // check if are removing task or board, if we have selectedTask its a task
+  const isTaskOrBoard =
+    Object.entries(selectedTask).length !== 0 ? "task" : "board";
+
   const handleDelete = () => {
-    //first find the column that the current selectedTask lives in
-    let columnOfSelectedTask = Object.values(currentColumns).find(
-      (column) => column.name === selectedTask.status
-    );
+    if (isTaskOrBoard === "task") {
+      //first find the column that the current selectedTask lives in
+      let columnOfSelectedTask = Object.values(currentColumns).find(
+        (column) => column.name === selectedTask.status
+      );
 
-    // remove it and return us a new array
-    let updatedTaskArray = columnOfSelectedTask.tasks.filter(
-      (item) => item.key !== selectedTask.key
-    );
+      // remove it and return us a new array
+      let updatedTaskArray = columnOfSelectedTask.tasks.filter(
+        (item) => item.key !== selectedTask.key
+      );
 
-    setCurrentColumns({
-      ...currentColumns,
-      [selectedTask.key]: {
-        ...currentColumns[selectedTask.key],
-        tasks: updatedTaskArray,
-      },
-    });
+      // replace the old columns with the new ones
+      setCurrentColumns({
+        ...currentColumns,
+        [selectedTask.key]: {
+          ...currentColumns[selectedTask.key],
+          tasks: updatedTaskArray,
+        },
+      });
+    } else {
+      // if we have a board
+      setCopy(copy.filter((board) => board.name !== copy[currentBoard].name));
+      setCurrentBoard(0);
+    }
     handleClose();
   };
 
   return (
     <div className="delete-modal">
-      <h1>
-        Delete this{" "}
-        {Object.entries(selectedTask).length !== 0 ? "Task" : "Board"}?
-      </h1>
-      <p>
-        {Object.entries(selectedTask).length !== 0
-          ? taskDeletion
-          : boardDeletion}
-      </p>
+      <h1>Delete this {isTaskOrBoard === "task" ? "Task" : "Board"}?</h1>
+      <p>{isTaskOrBoard === "task" ? taskDeletion : boardDeletion}</p>
       <div>
         <button className="button red" onClick={handleDelete}>
           Delete

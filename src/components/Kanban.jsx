@@ -85,7 +85,8 @@ const Kanban = ({
                                     onClick={() => {
                                       setSelectedTask(
                                         item,
-                                        (item.key = columnId)
+                                        (item.key = columnId),
+                                        (item.status = column.name)
                                       );
                                       setIsModalOpen("view_task");
                                     }}
