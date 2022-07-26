@@ -17,7 +17,7 @@ const TaskForm = ({ setIsModalOpen }) => {
   const initialValues = {
     title: "" || selectedTask.title,
     description: "" || selectedTask.description,
-    subtasks: [] || selectedTask.subtasks,
+    subtasks: selectedTask.subtasks || [],
     status: "" || selectedTask.status,
   };
 
@@ -30,23 +30,40 @@ const TaskForm = ({ setIsModalOpen }) => {
         initialValues={initialValues}
         validationSchema={validationSchemaTask}
         onSubmit={(values) => {
-          // add isCompleted property to all subtasks
-          values.subtasks.map((task) => (task.isCompleted = false));
-          // find the index of the array that we adding to
+          // get the index of the array the we modify
           let index = Object.entries(currentColumns).findIndex(
             ([id, column]) => column.name === values.status && id
           );
-          // copy the old tasks and add a new task into a new array
-          let newTasksArray = [...currentColumns[index].tasks, { ...values }];
+          if (isSelectedTask) {
+            // add isCompleted property to all subtasks
+            values.subtasks.map((task) => (task.isCompleted = false));
+            // copy the old tasks and add a new task into a new array
+            const newTasksArray = [
+              ...currentColumns[index].tasks,
+              { ...values },
+            ];
 
-          // replace the currentColumns[index] so eg "Todos" array. With the newTaskArrays
-          setCurrentColumns({
-            ...currentColumns,
-            [index]: {
-              ...currentColumns[index],
-              tasks: newTasksArray,
-            },
-          });
+            // replace the currentColumns[index] so eg "Todos" array. With the newTaskArray
+            setCurrentColumns({
+              ...currentColumns,
+              [index]: {
+                ...currentColumns[index],
+                tasks: newTasksArray,
+              },
+            });
+          } else {
+            // find the one that we are editing and replace it
+            const updatedArray = currentColumns[index].tasks.map((task) =>
+              task.index === selectedTask.index ? { ...values } : task
+            );
+            setCurrentColumns({
+              ...currentColumns,
+              [index]: {
+                ...currentColumns[index],
+                tasks: updatedArray,
+              },
+            });
+          }
           setIsModalOpen(false);
         }}
       >
@@ -92,22 +109,42 @@ const TaskForm = ({ setIsModalOpen }) => {
             </div>
             <div className="field-wrapper">
               <label htmlFor="title">Subtasks</label>
-              {Array.from(Array(subTaskAmount)).map((_, index) => (
-                <div className="subtask-item" key={index}>
-                  <Field
-                    placeholder="e.g Make coffee"
-                    name={`subtasks[${index}].title`}
-                    className="input"
-                    autocomplete="off"
-                  />
+              {/* If we edit a task */}
+              {!isSelectedTask &&
+                values.values.subtasks.map((item, index) => (
+                  <div className="subtask-item" key={index}>
+                    <Field
+                      placeholder="e.g Make coffee"
+                      name={`subtasks[${index}].title`}
+                      className="input"
+                      autoComplete="off"
+                    />
 
-                  <img
-                    src={cross}
-                    alt="cross"
-                    onClick={() => setSubTaskAmount((prev) => (prev -= 1))}
-                  />
-                </div>
-              ))}
+                    <img
+                      src={cross}
+                      alt="cross"
+                      onClick={() => console.log(item)}
+                    />
+                  </div>
+                ))}
+              {/* if we add a new task */}
+              {isSelectedTask &&
+                Array.from(Array(subTaskAmount)).map((_, index) => (
+                  <div className="subtask-item" key={index}>
+                    <Field
+                      placeholder="e.g Make coffee"
+                      name={`subtasks[${index}].title`}
+                      className="input"
+                      autoComplete="off"
+                    />
+
+                    <img
+                      src={cross}
+                      alt="cross"
+                      onClick={() => setSubTaskAmount((prev) => (prev -= 1))}
+                    />
+                  </div>
+                ))}
               <button
                 type="button"
                 className="button"
@@ -119,7 +156,7 @@ const TaskForm = ({ setIsModalOpen }) => {
             <div className="field-wrapper parent">
               <label htmlFor="status">Status</label>
               <Field
-                autocomplete="off"
+                autoComplete="off"
                 className="input"
                 value={values.values.status}
                 name="status"

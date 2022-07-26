@@ -99,7 +99,8 @@ const Kanban = ({
                                       setSelectedTask(
                                         item,
                                         (item.key = columnId),
-                                        (item.status = column.name)
+                                        (item.status = column.name),
+                                        (item.index = index)
                                       );
                                       setIsModalOpen("view_task");
                                     }}
