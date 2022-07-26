@@ -17,10 +17,6 @@ const SmallDropDown = ({
     setShowDropDown(false);
   });
 
-  const handleDelete = () => {
-    setIsModalOpen("delete");
-  };
-
   return (
     <div
       className={`small-dp-container ${name === "Board" && "board"}`}
