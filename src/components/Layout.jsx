@@ -33,7 +33,9 @@ const Layout = ({
                     <div
                       key={item.name}
                       className={`list-board ${
-                        item.name === copy[currentBoard].name ? "active" : ""
+                        item.name === copy[currentBoard].name
+                          ? "active"
+                          : undefined
                       }`}
                       onClick={() => setCurrentBoard(index)}
                     >
@@ -58,7 +60,9 @@ const Layout = ({
         )}
         <div className={showSideBar ? "header" : "header full"}>
           {!showSideBar && <img src={Logo} alt="" className="logo" />}
-          <h1 className={!showSideBar && "grow"}>{copy[currentBoard].name}</h1>
+          <h1 className={!showSideBar ? "grow" : undefined}>
+            {copy[currentBoard].name}
+          </h1>
           <div className="parent">
             <button onClick={() => setIsModalOpen("task_form")}>
               + Add New Task
