@@ -3,8 +3,8 @@ import "../styles/modal.css";
 import TaskForm from "./Forms/TaskForm";
 import ViewTask from "./Forms/ViewTask";
 import { useClickAway } from "react-use";
-import NewBoard from "./Forms/NewBoard";
 import Delete from "./Delete";
+import BoardForm from "./Forms/BoardForm";
 
 const Modal = ({
   isModalOpen,
@@ -32,7 +32,7 @@ const Modal = ({
           <TaskForm setIsModalOpen={setIsModalOpen} />
         )}
         {isModalOpen === "add_new_board" && (
-          <NewBoard setIsModalOpen={setIsModalOpen} />
+          <BoardForm setIsModalOpen={setIsModalOpen} />
         )}
         {isModalOpen === "delete" && (
           <Delete setIsModalOpen={setIsModalOpen} selectedTask={selectedTask} />

@@ -12,6 +12,7 @@ const TaskForm = ({ setIsModalOpen }) => {
     useContext(CopyContext);
 
   const [isOpen, setIsOpen] = useState(false);
+
   const initialValues = {
     title: "" || selectedTask.title,
     description: "" || selectedTask.description,

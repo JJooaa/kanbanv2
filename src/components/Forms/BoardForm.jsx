@@ -3,11 +3,11 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import cross from "../../assets/icon-cross.svg";
 import { CopyContext } from "../App";
 
-const NewBoard = ({ setIsModalOpen }) => {
+const BoardForm = ({ setIsModalOpen }) => {
   const [columnAmount, setColumnAmount] = useState(1);
 
   const { copy, setCopy } = useContext(CopyContext);
-  
+
   return (
     <>
       <h1>Add New Board</h1>
@@ -57,4 +57,4 @@ const NewBoard = ({ setIsModalOpen }) => {
   );
 };
 
-export default NewBoard;
+export default BoardForm;
