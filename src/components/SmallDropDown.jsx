@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from "react";
 import "../styles/dropdown.css";
 import { useClickAway } from "react-use";
-import { CopyContext } from "./App";
+import { CopyContext } from "../App";
 
 const SmallDropDown = ({
   name,

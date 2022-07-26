@@ -2,8 +2,8 @@ import React, { useContext, useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import "../../styles/form.css";
 import cross from "../../assets/icon-cross.svg";
-import { CopyContext } from "../App";
 import Dropdown from "./Dropdown";
+import { CopyContext } from "../../App";
 
 const TaskForm = ({ setIsModalOpen }) => {
   const [subTaskAmount, setSubTaskAmount] = useState(1);
@@ -52,11 +52,16 @@ const TaskForm = ({ setIsModalOpen }) => {
           <Form className="form">
             <div className="field-wrapper">
               <label htmlFor="title">Title</label>
-              <Field name="title" className="input" />
+              <Field
+                name="title"
+                className="input"
+                placeholder="e.g. Take coffee break"
+              />
             </div>
             <div className="field-wrapper">
               <label htmlFor="title">Description</label>
               <Field
+                placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little."
                 name="description"
                 as="textarea"
                 className="input textarea"
@@ -70,6 +75,7 @@ const TaskForm = ({ setIsModalOpen }) => {
                     placeholder="e.g Make coffee"
                     name={`subtasks[${index}].title`}
                     className="input"
+                    autocomplete="off"
                   />
                   <img
                     src={cross}
@@ -89,6 +95,7 @@ const TaskForm = ({ setIsModalOpen }) => {
             <div className="field-wrapper parent">
               <label htmlFor="status">Status</label>
               <Field
+                autocomplete="off"
                 className="input"
                 value={values.values.status}
                 name="status"

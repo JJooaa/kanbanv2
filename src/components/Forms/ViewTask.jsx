@@ -3,7 +3,7 @@ import "../../styles/form.css";
 import checkIcon from "../../assets/icon-check.svg";
 import dots from "../../assets/icon-vertical-ellipsis.svg";
 import SmallDropDown from "../SmallDropDown";
-import { CopyContext } from "../App";
+import { CopyContext } from "../../App";
 
 const ViewTask = ({ selectedTask, setIsModalOpen }) => {
   const { currentColumns } = useContext(CopyContext);
@@ -16,7 +16,7 @@ const ViewTask = ({ selectedTask, setIsModalOpen }) => {
     );
   }, [selectedTask]);
 
-  console.log(selectedTask)
+  console.log(selectedTask);
   return (
     <div className="view-task-content">
       <div className="view-task-title">

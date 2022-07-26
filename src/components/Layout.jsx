@@ -3,10 +3,10 @@ import Logo from "../assets/logo-light.svg";
 import dots from "../assets/icon-vertical-ellipsis.svg";
 import boardImg from "../assets/icon-board.svg";
 import { useContext, useState } from "react";
-import { CopyContext } from "./App";
 import SmallDropDown from "./SmallDropDown";
 import hideBar from "../assets/icon-hide-sidebar.svg";
 import showBar from "../assets/icon-show-sidebar.svg";
+import { CopyContext } from "../App";
 
 const Layout = ({
   children,

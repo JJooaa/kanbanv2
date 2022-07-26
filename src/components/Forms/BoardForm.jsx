@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import cross from "../../assets/icon-cross.svg";
-import { CopyContext } from "../App";
+import { CopyContext } from "../../App";
 
 const BoardForm = ({ setIsModalOpen }) => {
   const [columnAmount, setColumnAmount] = useState(1);

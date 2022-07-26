@@ -1,9 +1,9 @@
 import { useEffect, useState, createContext } from "react";
-import "../styles/App.css";
-import Layout from "./Layout";
-import Kanban from "./Kanban";
-import data from "../data.json";
-import Modal from "./Modal";
+import "./styles/App.css";
+import Layout from "./components/Layout";
+import Kanban from "./components/Kanban";
+import data from "./lib/data.json";
+import Modal from "./components/Modal";
 
 export const CopyContext = createContext();
 

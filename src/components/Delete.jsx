@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
+import { CopyContext } from "../App";
 import "../styles/modal.css";
-import { CopyContext } from "./App";
 
 const Delete = ({ selectedTask, setIsModalOpen }) => {
   const {
