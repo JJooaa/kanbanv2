@@ -4,6 +4,7 @@ import "../../styles/form.css";
 import cross from "../../assets/icon-cross.svg";
 import Dropdown from "../Dropdown";
 import { CopyContext } from "../../App";
+import { validationSchemaTask } from "../../lib/formValidation";
 
 const TaskForm = ({ setIsModalOpen }) => {
   const [subTaskAmount, setSubTaskAmount] = useState(1);
@@ -27,6 +28,7 @@ const TaskForm = ({ setIsModalOpen }) => {
       <h1>{isSelectedTask ? "Add New Task" : "Edit Task"}</h1>
       <Formik
         initialValues={initialValues}
+        validationSchema={validationSchemaTask}
         onSubmit={(values) => {
           // add isCompleted property to all subtasks
           values.subtasks.map((task) => (task.isCompleted = false));
@@ -56,6 +58,16 @@ const TaskForm = ({ setIsModalOpen }) => {
                 name="title"
                 className="input"
                 placeholder="e.g. Take coffee break"
+                style={
+                  values.errors.title && values.touched.title === true
+                    ? { outline: "1px solid red" }
+                    : null
+                }
+              />
+              <ErrorMessage
+                name="title"
+                component="div"
+                className="error-message"
               />
             </div>
             <div className="field-wrapper">
@@ -65,6 +77,17 @@ const TaskForm = ({ setIsModalOpen }) => {
                 name="description"
                 as="textarea"
                 className="input textarea"
+                style={
+                  values.errors.description &&
+                  values.touched.description === true
+                    ? { outline: "1px solid red" }
+                    : null
+                }
+              />
+              <ErrorMessage
+                name="description"
+                component="div"
+                className="error-message"
               />
             </div>
             <div className="field-wrapper">
@@ -77,6 +100,7 @@ const TaskForm = ({ setIsModalOpen }) => {
                     className="input"
                     autocomplete="off"
                   />
+
                   <img
                     src={cross}
                     alt="cross"
@@ -100,6 +124,16 @@ const TaskForm = ({ setIsModalOpen }) => {
                 value={values.values.status}
                 name="status"
                 onClick={() => setIsOpen(true)}
+                style={
+                  values.errors.status && values.touched.status === true
+                    ? { outline: "1px solid red" }
+                    : null
+                }
+              />
+              <ErrorMessage
+                name="status"
+                component="div"
+                className="error-message"
               />
               <Dropdown
                 currentColumns={currentColumns}
