@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import "../styles/modal.css";
 import TaskForm from "./Forms/TaskForm";
-import ViewTask from "./Forms/ViewTask";
+import ViewTask from "./ViewTask";
 import { useClickAway } from "react-use";
 import Delete from "./Delete";
 import BoardForm from "./Forms/BoardForm";

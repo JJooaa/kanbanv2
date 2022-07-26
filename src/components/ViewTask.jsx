@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import "../../styles/form.css";
-import checkIcon from "../../assets/icon-check.svg";
-import dots from "../../assets/icon-vertical-ellipsis.svg";
-import SmallDropDown from "../SmallDropDown";
-import { CopyContext } from "../../App";
+import "../styles/form.css";
+import checkIcon from "../assets/icon-check.svg";
+import dots from "../assets/icon-vertical-ellipsis.svg";
+import SmallDropDown from "./SmallDropDown";
+import { CopyContext } from "../App";
 
 const ViewTask = ({ selectedTask, setIsModalOpen }) => {
   const { currentColumns } = useContext(CopyContext);

@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import "../../styles/form.css";
 import cross from "../../assets/icon-cross.svg";
-import Dropdown from "./Dropdown";
+import Dropdown from "../Dropdown";
 import { CopyContext } from "../../App";
 
 const TaskForm = ({ setIsModalOpen }) => {
