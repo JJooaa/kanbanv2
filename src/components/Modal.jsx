@@ -30,7 +30,10 @@ const Modal = () => {
         {isModalOpen === "task_form" && (
           <TaskForm setIsModalOpen={setIsModalOpen} />
         )}
-        {isModalOpen === "add_new_board" && (
+        {isModalOpen === "add_board_form" && (
+          <BoardForm setIsModalOpen={setIsModalOpen} />
+        )}
+        {isModalOpen === "edit_board_form" && (
           <BoardForm setIsModalOpen={setIsModalOpen} />
         )}
         {isModalOpen === "delete" && (

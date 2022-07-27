@@ -17,7 +17,7 @@ const SmallDropDown = ({ name, setShowDropDown, setIsModalOpen }) => {
     if (name === "Task") {
       setIsModalOpen("task_form");
     } else {
-      setIsModalOpen("add_new_board");
+      setIsModalOpen("edit_board_form");
     }
     setShowDropDown(false);
   };

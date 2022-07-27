@@ -19,10 +19,14 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [selectedTask, setSelectedTask] = useState({});
+  const [selectedBoard, setSelectedBoard] = useState({});
 
   useEffect(() => {
     setCurrentColumns({
       ...copy[currentBoard].columns,
+    });
+    setSelectedBoard({
+      ...copy[currentBoard],
     });
   }, [currentBoard]);
 
@@ -39,6 +43,8 @@ function App() {
         setSelectedTask,
         isModalOpen,
         setIsModalOpen,
+        selectedBoard,
+        setSelectedBoard,
       }}
     >
       {isModalOpen && <Modal />}

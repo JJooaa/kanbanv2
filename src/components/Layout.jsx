@@ -9,8 +9,13 @@ import showBar from "../assets/icon-show-sidebar.svg";
 import { CopyContext } from "../App";
 
 const Layout = ({ children }) => {
-  const { copy, currentBoard, setCurrentBoard, setIsModalOpen } =
-    useContext(CopyContext);
+  const {
+    copy,
+    currentBoard,
+    setCurrentBoard,
+    setIsModalOpen,
+    setSelectedBoard,
+  } = useContext(CopyContext);
 
   const [showDropDown, setShowDropDown] = useState(false);
 
@@ -34,7 +39,9 @@ const Layout = ({ children }) => {
                           ? "active"
                           : undefined
                       }`}
-                      onClick={() => setCurrentBoard(index)}
+                      onClick={() => {
+                        setCurrentBoard(index);
+                      }}
                     >
                       <img src={boardImg} alt="board" />
                       {item.name}
@@ -42,7 +49,7 @@ const Layout = ({ children }) => {
                   ))}
                   <div
                     className="list-board blue"
-                    onClick={() => setIsModalOpen("add_new_board")}
+                    onClick={() => setIsModalOpen("add_board_form")}
                   >
                     <img src={boardImg} alt="board" className="blue-board" />+
                     Create New Board
