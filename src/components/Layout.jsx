@@ -8,13 +8,10 @@ import hideBar from "../assets/icon-hide-sidebar.svg";
 import showBar from "../assets/icon-show-sidebar.svg";
 import { CopyContext } from "../App";
 
-const Layout = ({
-  children,
-  setCurrentBoard,
-  currentBoard,
-  setIsModalOpen,
-}) => {
-  const { copy } = useContext(CopyContext);
+const Layout = ({ children }) => {
+  const { copy, currentBoard, setCurrentBoard, setIsModalOpen } =
+    useContext(CopyContext);
+
   const [showDropDown, setShowDropDown] = useState(false);
 
   const [showSideBar, setShowSideBar] = useState(true);

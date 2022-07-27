@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { Formik, Field, Form, ErrorMessage, FieldArray } from "formik";
 import "../../styles/form.css";
 import cross from "../../assets/icon-cross.svg";
 import Dropdown from "../Dropdown";
@@ -7,8 +7,6 @@ import { CopyContext } from "../../App";
 import { validationSchemaTask } from "../../lib/formValidation";
 
 const TaskForm = ({ setIsModalOpen }) => {
-  const [subTaskAmount, setSubTaskAmount] = useState(1);
-
   const { currentColumns, setCurrentColumns, selectedTask } =
     useContext(CopyContext);
 
@@ -17,7 +15,7 @@ const TaskForm = ({ setIsModalOpen }) => {
   const initialValues = {
     title: "" || selectedTask.title,
     description: "" || selectedTask.description,
-    subtasks: selectedTask.subtasks || [],
+    subtasks: selectedTask.subtasks || [{ name: "" }],
     status: "" || selectedTask.status,
   };
 
@@ -67,7 +65,7 @@ const TaskForm = ({ setIsModalOpen }) => {
           setIsModalOpen(false);
         }}
       >
-        {(values) => (
+        {({ values, errors, touched }) => (
           <Form className="form">
             <div className="field-wrapper">
               <label htmlFor="title">Title</label>
@@ -76,7 +74,7 @@ const TaskForm = ({ setIsModalOpen }) => {
                 className="input"
                 placeholder="e.g. Take coffee break"
                 style={
-                  values.errors.title && values.touched.title === true
+                  errors.title && touched.title === true
                     ? { outline: "1px solid red" }
                     : null
                 }
@@ -95,8 +93,7 @@ const TaskForm = ({ setIsModalOpen }) => {
                 as="textarea"
                 className="input textarea"
                 style={
-                  values.errors.description &&
-                  values.touched.description === true
+                  errors.description && touched.description === true
                     ? { outline: "1px solid red" }
                     : null
                 }
@@ -109,60 +106,47 @@ const TaskForm = ({ setIsModalOpen }) => {
             </div>
             <div className="field-wrapper">
               <label htmlFor="title">Subtasks</label>
-              {/* If we edit a task */}
-              {!isSelectedTask &&
-                values.values.subtasks.map((item, index) => (
-                  <div className="subtask-item" key={index}>
-                    <Field
-                      placeholder="e.g Make coffee"
-                      name={`subtasks[${index}].title`}
-                      className="input"
-                      autoComplete="off"
-                    />
+              <FieldArray
+                name="subtasks"
+                render={(arrayHelpers) => (
+                  <>
+                    {values.subtasks.map((__, index) => (
+                      <div className="subtask-item" key={index}>
+                        <Field
+                          placeholder="e.g Make coffee"
+                          name={`subtasks[${index}].title`}
+                          className="input"
+                          autoComplete="off"
+                        />
 
-                    <img
-                      src={cross}
-                      alt="cross"
-                      onClick={() => console.log(item)}
-                    />
-                  </div>
-                ))}
-              {/* if we add a new task */}
-              {isSelectedTask &&
-                Array.from(Array(subTaskAmount)).map((_, index) => (
-                  <div className="subtask-item" key={index}>
-                    <Field
-                      placeholder="e.g Make coffee"
-                      name={`subtasks[${index}].title`}
-                      className="input"
-                      autoComplete="off"
-                    />
-
-                    <img
-                      src={cross}
-                      alt="cross"
-                      onClick={() => setSubTaskAmount((prev) => (prev -= 1))}
-                    />
-                  </div>
-                ))}
-              <button
-                type="button"
-                className="button"
-                onClick={() => setSubTaskAmount((prev) => (prev += 1))}
-              >
-                + Add New Subtask
-              </button>
+                        <img
+                          src={cross}
+                          alt="cross"
+                          onClick={() => arrayHelpers.remove(index)}
+                        />
+                      </div>
+                    ))}
+                    <button
+                      type="button"
+                      className="button"
+                      onClick={() => arrayHelpers.push({ title: "" })}
+                    >
+                      + Add New Subtask
+                    </button>
+                  </>
+                )}
+              />
             </div>
             <div className="field-wrapper parent">
               <label htmlFor="status">Status</label>
               <Field
                 autoComplete="off"
                 className="input"
-                value={values.values.status}
+                value={values.status}
                 name="status"
                 onClick={() => setIsOpen(true)}
                 style={
-                  values.errors.status && values.touched.status === true
+                  errors.status && touched.status === true
                     ? { outline: "1px solid red" }
                     : null
                 }

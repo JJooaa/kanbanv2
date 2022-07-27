@@ -1,11 +1,11 @@
+import { useContext } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { CopyContext } from "../App";
 
-const Kanban = ({
-  currentColumns,
-  setCurrentColumns,
-  setSelectedTask,
-  setIsModalOpen,
-}) => {
+const Kanban = () => {
+  const { currentColumns, setCurrentColumns, setSelectedTask, setIsModalOpen } =
+    useContext(CopyContext);
+
   const onDragEnd = (result, columns) => {
     if (!result.destination) return;
 
