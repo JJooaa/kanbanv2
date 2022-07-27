@@ -1,31 +1,34 @@
-import React, { useContext, useRef } from "react";
+import React, { useRef } from "react";
 import "../styles/dropdown.css";
 import { useClickAway } from "react-use";
-import { CopyContext } from "../App";
 
-const SmallDropDown = ({
-  name,
-  setShowDropDown,
-  selectedTask,
-  setIsModalOpen,
-}) => {
-  const { copy, setCopy, currentColumns, setCurrentColumns } =
-    useContext(CopyContext);
-
+const SmallDropDown = ({ name, setShowDropDown, setIsModalOpen }) => {
   const ref = useRef(null);
   useClickAway(ref, () => {
     setShowDropDown(false);
   });
+
+  const handleDelete = () => {
+    setIsModalOpen("delete");
+    setShowDropDown(false);
+  };
+
+  const handleEdit = () => {
+    if (name === "Task") {
+      setIsModalOpen("task_form");
+    } else {
+      setIsModalOpen("add_new_board");
+    }
+    setShowDropDown(false);
+  };
 
   return (
     <div
       className={`small-dp-container ${name === "Board" && "board"}`}
       ref={ref}
     >
-      <div onClick={() => name === "Task" && setIsModalOpen("task_form")}>
-        Edit {name}
-      </div>
-      <div onClick={() => setIsModalOpen("delete")}>Delete {name}</div>
+      <div onClick={handleEdit}>Edit {name}</div>
+      <div onClick={handleDelete}>Delete {name}</div>
     </div>
   );
 };
