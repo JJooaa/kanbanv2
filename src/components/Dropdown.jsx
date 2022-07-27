@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useField } from "formik";
 import { useClickAway } from "react-use";
 
@@ -7,9 +7,11 @@ const Dropdown = ({ currentColumns, name, isOpen, setIsOpen }) => {
   const ref = useRef(null);
 
   const { setValue } = helpers;
+
   useClickAway(ref, () => {
     setIsOpen(false);
   });
+
   return (
     <>
       {isOpen && (
