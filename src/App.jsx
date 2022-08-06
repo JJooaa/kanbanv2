@@ -22,14 +22,15 @@ function App() {
   const [selectedBoard, setSelectedBoard] = useState({});
 
   useEffect(() => {
-    setCurrentColumns({
-      ...copy[currentBoard].columns,
-    });
     setSelectedBoard({
       ...copy[currentBoard],
     });
+    setCurrentColumns({
+      ...copy[currentBoard].columns,
+    });
   }, [currentBoard]);
 
+  // states are inside a single context provider, def not the best idea.
   return (
     <CopyContext.Provider
       value={{
