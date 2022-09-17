@@ -62,91 +62,88 @@ const Kanban = () => {
     });
   };
 
-  let randomColorGenerator = () =>
-    Math.floor(Math.random() * 16777215).toString(16);
+  let colors = ["#49C4E5", "#8471F2", "#67E2AE"];
 
   return (
     <div className="Kanban">
       <DragDropContext
-        onDragEnd={(result) => onDragEnd(result, copy[currentBoard].columns)}
+        onDragEnd={(result) => onDragEnd(result, currentColumns)}
       >
-        {Object.entries(copy[currentBoard].columns).map(
-          ([columnId, column]) => {
-            return (
-              <div key={columnId}>
-                <>
-                  <div className="column-name-wrapper">
-                    <div
-                      style={{
-                        width: 15,
-                        height: 15,
-                        borderRadius: 50,
-                        backgroundColor: `#${randomColorGenerator()}`,
-                      }}
-                    ></div>
-                    <h4 className="column-name">
-                      {column.name} ({column.tasks.length})
-                    </h4>
-                  </div>
-                  <Droppable droppableId={columnId} key={columnId}>
-                    {(provided) => {
-                      return (
-                        <div className="column" ref={provided.innerRef}>
-                          {column.tasks.map((item, index) => {
-                            return (
-                              <Draggable
-                                key={item.title}
-                                draggableId={item.title}
-                                index={index}
-                              >
-                                {(provided, snapshot) => {
-                                  return (
-                                    <div
-                                      onClick={() => {
-                                        setSelectedTask(
-                                          item,
-                                          (item.key = columnId),
-                                          (item.status = column.name),
-                                          (item.index = index)
-                                        );
-                                        setIsModalOpen("view_task");
-                                      }}
-                                      className="card"
-                                      ref={provided.innerRef}
-                                      {...provided.draggableProps}
-                                      {...provided.dragHandleProps}
-                                      style={{
-                                        backgroundColor: snapshot.isDragging
-                                          ? "#635fc750"
-                                          : "#2B2C37",
-                                        ...provided.draggableProps.style,
-                                      }}
-                                    >
-                                      <h4>{item.title}</h4>
-                                      <p>
-                                        {
-                                          item.subtasks.filter(
-                                            (item) => item.isCompleted === true
-                                          ).length
-                                        }{" "}
-                                        of {item.subtasks.length} subtasks
-                                      </p>
-                                    </div>
-                                  );
-                                }}
-                              </Draggable>
-                            );
-                          })}
-                          {provided.placeholder}
-                        </div>
-                      );
+        {Object.entries(currentColumns).map(([columnId, column]) => {
+          return (
+            <div key={columnId}>
+              <>
+                <div className="column-name-wrapper">
+                  <div
+                    style={{
+                      width: 15,
+                      height: 15,
+                      borderRadius: 50,
+                      backgroundColor: colors[columnId],
                     }}
-                  </Droppable>
-                </>
-              </div>
-            );
-          }
-        )}
+                  ></div>
+                  <h4 className="column-name">
+                    {column.name} ({column.tasks.length})
+                  </h4>
+                </div>
+                <Droppable droppableId={columnId} key={columnId}>
+                  {(provided) => {
+                    return (
+                      <div className="column" ref={provided.innerRef}>
+                        {column.tasks.map((item, index) => {
+                          return (
+                            <Draggable
+                              key={item.title}
+                              draggableId={item.title}
+                              index={index}
+                            >
+                              {(provided, snapshot) => {
+                                return (
+                                  <div
+                                    onClick={() => {
+                                      setSelectedTask(
+                                        item,
+                                        (item.key = columnId),
+                                        (item.status = column.name),
+                                        (item.index = index)
+                                      );
+                                      setIsModalOpen("view_task");
+                                    }}
+                                    className="card"
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    style={{
+                                      backgroundColor: snapshot.isDragging
+                                        ? "#635fc750"
+                                        : "#2B2C37",
+                                      ...provided.draggableProps.style,
+                                    }}
+                                  >
+                                    <h4>{item.title}</h4>
+                                    <p>
+                                      {
+                                        item.subtasks.filter(
+                                          (item) => item.isCompleted === true
+                                        ).length
+                                      }{" "}
+                                      of {item.subtasks.length} subtasks
+                                    </p>
+                                  </div>
+                                );
+                              }}
+                            </Draggable>
+                          );
+                        })}
+                        {provided.placeholder}
+                      </div>
+                    );
+                  }}
+                </Droppable>
+              </>
+            </div>
+          );
+        })}
       </DragDropContext>
       <div className="add-new-column" onClick={addNewColumn}>
         + New Column
